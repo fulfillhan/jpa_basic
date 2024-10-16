@@ -1,22 +1,22 @@
 package jpabook.jpashop.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Member {
     @Id  //필수 식별자!!
     @GeneratedValue//디비가 만들어주는 값을 쓰는 조건 ->기본값은 AUTO이다
-    @Column(name = "MEMEBER_ID")
+    @Column(name = "MEMBER_ID")
     private long id;
-    private String name;
-    private String city;
-    private String street;
-    private String zipcode;
+    @Column(name = "USERNAME")
+    private String userName;
 
-    //setter  고민할 필요가 있다. 막 만들면 아무데서나 할 수 있어서 가급적 생성자에서 사용하기!!
+    //단방향 연관관계- 객체의 참조와 외래키를 연관을 맺는다
+    //외래키가 있는 곳을 기준으로 해라.
+    @ManyToOne  //Team과 MEMBER가 어떤 연관관계인지, 팀 기준으로 여러 회원이 있을 수 있다.
+    @JoinColumn(name = "TEAM_ID")  //테이블의 TEAM_ID 컬럼과 매핑시킨다.
+    private Team team; // 객체의 참조
+
     public long getId() {
         return id;
     }
@@ -25,35 +25,24 @@ public class Member {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getCity() {
-        return city;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getZipcode() {
-        return zipcode;
-    }
-
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
+    public void change(Team team) {
+        this.team = team;
+        team.getMembers().add(this);
     }
 }
