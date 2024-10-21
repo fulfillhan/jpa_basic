@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
 
 @Entity
 public class Member {
@@ -18,6 +19,9 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
+    @OneToOne  //외래 키가 있는곳으로 연관관계의 주인으로 설정
+    @JoinColumn(name = "LOCKER_ID")
+    private Locker locker;
 
     public long getId() {
         return id;

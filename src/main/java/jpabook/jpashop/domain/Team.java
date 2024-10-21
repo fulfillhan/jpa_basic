@@ -41,7 +41,7 @@ public class Team {
     }
 
     public void addMember(Member member) {
-       member.setTeam(this);
+       //member.setTeam(this);
        members.add(member);
 
     }
