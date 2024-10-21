@@ -21,6 +21,10 @@ public class Order {
     @Enumerated(EnumType.STRING)  //순서가 바뀌면 꼬일 수 있음.
     private OrderStatus status;
 
+    @OneToOne
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;
+
     public Long getId() {
         return id;
     }
