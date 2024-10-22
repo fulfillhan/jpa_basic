@@ -1,0 +1,61 @@
+package jpabook.jpashop.practice01.domain;
+
+import jakarta.persistence.*;
+import jpabook.jpashop.domain.Item;
+import jpabook.jpashop.domain.Order;
+
+@Entity
+public class OrderItem extends BaseEntity{
+    @Id @GeneratedValue
+    @Column(name = "ORDER_ITEM_ID")
+    private Long id;
+    @ManyToOne
+    @JoinColumn(name = "ORDER_ID")
+    private jpabook.jpashop.domain.Order order;
+    @ManyToOne
+    @JoinColumn(name = "ITEM_ID")
+    private Item item;
+
+    private int orderPrice;
+    private int count;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public jpabook.jpashop.domain.Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public int getOrderPrice() {
+        return orderPrice;
+    }
+
+    public void setOrderPrice(int orderPrice) {
+        this.orderPrice = orderPrice;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+}
