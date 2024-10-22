@@ -6,16 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Item {
+@Inheritance(strategy = InheritanceType.JOINED)
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE) //->단일 테이블 전략
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@DiscriminatorColumn
+public abstract class Item {
 
     @Id @GeneratedValue
     @Column(name = "ITEM_ID")
     private Long id;
     private String name;
     private int price;
-    private int stockQuantity;
-    @ManyToMany(mappedBy = "items")
-    private List<Category> categories = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -41,11 +42,4 @@ public class Item {
         this.price = price;
     }
 
-    public int getStockQuantity() {
-        return stockQuantity;
-    }
-
-    public void setStockQuantity(int stockQuantity) {
-        this.stockQuantity = stockQuantity;
-    }
 }

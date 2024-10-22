@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class JpaMain {
@@ -15,9 +16,15 @@ public class JpaMain {
         tx.begin();
 
         try {
+            Member member = new Member();
+            member.setCreatedBy("aaa");
+            member.setCreatedDate(LocalDateTime.now());
+            member.setLastModifiedBy("bbb");
 
-            Order order = new Order();
-            order.addOrderItem(new OrderItem());
+            em.flush();
+            em.clear();
+
+            em.persist(member);
 
             tx.commit();
         }catch (Exception e){
