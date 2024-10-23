@@ -2,17 +2,17 @@ package jpabook.jpashop.practice01.domain;
 
 import jakarta.persistence.*;
 import jpabook.jpashop.domain.Item;
-import jpabook.jpashop.domain.Order;
+
 
 @Entity
 public class OrderItem extends BaseEntity{
     @Id @GeneratedValue
     @Column(name = "ORDER_ITEM_ID")
     private Long id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ORDER_ID")
-    private jpabook.jpashop.domain.Order order;
-    @ManyToOne
+    private Order order;
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ITEM_ID")
     private Item item;
 
@@ -27,7 +27,7 @@ public class OrderItem extends BaseEntity{
         this.id = id;
     }
 
-    public jpabook.jpashop.domain.Order getOrder() {
+    public Order getOrder() {
         return order;
     }
 

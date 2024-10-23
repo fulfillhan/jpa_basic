@@ -4,8 +4,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
-import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.practice01.domain.Book;
+import jpabook.jpashop.practice01.domain.Member;
 
 import java.time.LocalDateTime;
 
@@ -18,15 +18,18 @@ public class JpaMain {
 
         try {
 
-            Book book = new Book();
-            book.setName("spring");
-            book.setAuthor("tkdgml");
+            Member member = new Member();
+            member.setName("member1");
+            em.persist(member);
 
             //영속성 정리
             em.flush();
             em.clear();
 
-            em.persist(book);
+            Member refMember = em.getReference(Member.class, member.getId()); // 프록시 초기화
+            System.out.println("refMember.getName() = " + refMember.getName());
+            System.out.println("refMember.getClass() = " + refMember.getClass());
+
 
             tx.commit();
         }catch (Exception e){

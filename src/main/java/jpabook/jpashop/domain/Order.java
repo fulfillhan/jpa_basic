@@ -12,7 +12,7 @@ public class Order {
     @Id @GeneratedValue
     @Column(name = "ORDER_ID")
     private Long id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")  //테이블의 MEMBER_ID컬럼과 객체의 member과 맵핑된다.
     private Member member;
     @OneToMany(mappedBy = "order")
@@ -21,7 +21,7 @@ public class Order {
     @Enumerated(EnumType.STRING)  //순서가 바뀌면 꼬일 수 있음.
     private OrderStatus status;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "DELIVERY_ID")
     private Delivery delivery;
 

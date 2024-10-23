@@ -11,8 +11,8 @@ import java.util.List;
 
 @Entity
 public class Member extends BaseEntity {
-    @Id  //필수 식별자!!
-    @GeneratedValue//디비가 만들어주는 값을 쓰는 조건 ->기본값은 AUTO이다
+    @Id
+    @GeneratedValue
     @Column(name = "MEMBER_ID")
     private long id;
     private String name;
@@ -22,13 +22,12 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
-    @OneToOne  //외래 키가 있는곳으로 연관관계의 주인으로 설정
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LOCKER_ID")
     private Locker locker;
 
     @OneToMany(mappedBy = "member")
     private List<MemberProduct> memberProducts = new ArrayList<>();
-
 
     public long getId() {
         return id;

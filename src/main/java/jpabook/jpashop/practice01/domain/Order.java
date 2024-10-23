@@ -1,11 +1,7 @@
 package jpabook.jpashop.practice01.domain;
 
 import jakarta.persistence.*;
-import jpabook.jpashop.domain.Delivery;
-import jpabook.jpashop.domain.Member;
-import jpabook.jpashop.domain.OrderItem;
 import jpabook.jpashop.domain.OrderStatus;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,16 +12,16 @@ public class Order extends BaseEntity {
     @Id @GeneratedValue
     @Column(name = "ORDER_ID")
     private Long id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")  //테이블의 MEMBER_ID컬럼과 객체의 member과 맵핑된다.
-    private jpabook.jpashop.domain.Member member;
-    @OneToMany(mappedBy = "order")
+    private Member member;
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
     private LocalDateTime date;  //자동으로 해준다
     @Enumerated(EnumType.STRING)  //순서가 바뀌면 꼬일 수 있음.
     private OrderStatus status;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "DELIVERY_ID")
     private Delivery delivery;
 
@@ -37,15 +33,7 @@ public class Order extends BaseEntity {
         this.id = id;
     }
 
-/*    public Long getMemberId() {
-        return memberId;
-    }
-
-    public void setMemberId(Long memberId) {
-        this.memberId = memberId;
-    }*/
-
-    public jpabook.jpashop.domain.Member getMember() {
+    public Member getMember() {
         return member;
     }
 
