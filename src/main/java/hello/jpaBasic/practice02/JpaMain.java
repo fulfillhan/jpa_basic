@@ -1,11 +1,13 @@
-package hello.jpaBasic.practice01;
+package hello.jpaBasic.practice02;
 
+
+import hello.jpaBasic.practice02.domain.Address;
+import hello.jpaBasic.practice02.domain.Member;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
-import hello.jpaBasic.practice01.domain.Member;
-/*프록시에 대해서*/
+/*임베디드 타입과 값 타입에 대해서*/
 public class JpaMain {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
@@ -14,19 +16,14 @@ public class JpaMain {
         tx.begin();
 
         try {
-
             Member member = new Member();
-            member.setName("member1");
+            member.setUsername("hello");
+            member.setAddress(new Address("city","street","zipCode"));
             em.persist(member);
 
             //영속성 정리
             em.flush();
             em.clear();
-
-            Member refMember = em.getReference(Member.class, member.getId()); // 프록시 초기화
-            System.out.println("refMember.getName() = " + refMember.getName());
-            System.out.println("refMember.getClass() = " + refMember.getClass());
-
 
             tx.commit();
         }catch (Exception e){
