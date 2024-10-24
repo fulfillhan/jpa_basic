@@ -9,19 +9,12 @@ public class Period {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
+    // 객체 타입은 immutable 해야 한다.  set타입 제거
     public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
-        this.startDate = startDate;
-    }
-
     public LocalDateTime getEndDate() {
         return endDate;
-    }
-
-    public void setEndDate(LocalDateTime endDate) {
-        this.endDate = endDate;
     }
 }

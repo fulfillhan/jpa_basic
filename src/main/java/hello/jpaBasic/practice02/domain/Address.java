@@ -16,29 +16,17 @@ public class Address {
 
     public Address() {
     }
-
+    // 객체 타입은 immutable 해야 한다.  set타입 제거
     public String getCity() {
         return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
     public String getStreet() {
         return street;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
     public String getZipCode() {
         return zipCode;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
     }
 }
 
