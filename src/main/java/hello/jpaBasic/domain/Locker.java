@@ -11,7 +11,7 @@ public class Locker {
 
     private String name;
 
-    //양방향으로 하고싶다면?
+    //양방향으로 하고싶다면? -  대상 테이블
     @OneToOne(mappedBy = "locker")
     private Member member;
 }

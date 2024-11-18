@@ -13,7 +13,8 @@ public class Team extends BaseEntity{
     private String name;
     // 객체의 양방향관계는 사실 양방향 관계가 아니라 서로 다른 단방향 관계 2개다.
     //테이블에서는 외래키 하나로 두 테이블의 양방향 관계를 관리한다.(양쪽으로 조인할 수 있다.)
-    @OneToMany(mappedBy = "team")// 조회만 가능하다.
+
+    @OneToMany(mappedBy = "team")
     private List<Member> members = new ArrayList<>();
 
     public Long getId() {

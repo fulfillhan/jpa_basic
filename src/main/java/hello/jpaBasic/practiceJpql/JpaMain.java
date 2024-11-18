@@ -1,11 +1,11 @@
-package hello.jpaBasic.practice01;
+package hello.jpaBasic.practiceJpql;
 
-import hello.jpaBasic.practice01.domain.Movie;
+import hello.jpaBasic.practice01.domain.Member;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
-import hello.jpaBasic.practice01.domain.Member;
+
 /*프록시에 대해서*/
 public class JpaMain {
     public static void main(String[] args) {
@@ -16,19 +16,20 @@ public class JpaMain {
 
         try {
 
+            //객체를 생성한 상태(비영속)
             Member member = new Member();
-            member.setName("member1");
-            member.setCity("서울시");
+            member.setName("memberA");
+
+            em.getTransaction().begin();
+
+            //객체를 저장한 상태(영속)
             em.persist(member);
 
-            //영속성 정리
-            em.flush();
-            em.clear();
+            Member findMember = em.find(Member.class, 101L);  //findMember:영속 상태
+            em.detach(findMember); // 준영속 상태 : jpa에서 관리되지 않는다.
 
-            Member refMember = em.getReference(Member.class, member.getId()); // 프록시 초기화
-            System.out.println("refMember.getName() = " + refMember.getName());
-            System.out.println("refMember.getClass() = " + refMember.getClass());
-
+            em.clear();  //영속성 컨텍스트 완전히 초기화
+            em.close();  // 영속성 컨텍스트 종료
 
             tx.commit();
         }catch (Exception e){

@@ -21,6 +21,9 @@ public class Member extends BaseEntity {
     @OneToOne  //외래 키가 있는곳으로 연관관계의 주인으로 설정
     @JoinColumn(name = "LOCKER_ID")
     private Locker locker;
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
 
     @OneToMany(mappedBy = "member")
     private List<MemberProduct> memberProducts = new ArrayList<>();
