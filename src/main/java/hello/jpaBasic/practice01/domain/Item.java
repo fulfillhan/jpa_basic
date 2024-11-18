@@ -3,7 +3,9 @@ package hello.jpaBasic.practice01.domain;
 import jakarta.persistence.*;
 
 @Entity
+//@Inheritance(strategy = InheritanceType.JOINED) // 단일 테이블 전략으로 생성.
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE) // 단일 테이블 전략으로 생성.
+@DiscriminatorColumn // String name() default "DTYPE"; 구분하기 위해서 사용
 public abstract class Item extends BaseEntity{
 
     @Id @GeneratedValue

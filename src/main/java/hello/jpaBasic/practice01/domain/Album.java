@@ -1,8 +1,10 @@
 package hello.jpaBasic.practice01.domain;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 @Entity
+@DiscriminatorValue("a")//서브타입 이름을 바꿀 수 있다.
 public class Album extends Item{
     private String artist;
     private String etc;
